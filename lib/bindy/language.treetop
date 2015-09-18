@@ -23,7 +23,7 @@ module Bindy
     end
 
     rule string
-      [\da-zA-ZáéíóúüñÁÉÍÓÚÜÑ¿?!¡\s\@\#\$\%\&\/\\\*\_\-\+\/\\\*\_\-\+\.\,\:\;\<\>\|\"\']+ <LiteralString>
+      [\da-zA-ZáéíóúüñÁÉÍÓÚÜÑ¿?!¡\s\@\#\$\%\&\/\\\*\_\-\+\/\\\*\_\-\+\.\:\;\<\>\|\"\']+ <LiteralString>
     end
 
     rule number

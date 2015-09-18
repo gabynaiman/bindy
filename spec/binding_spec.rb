@@ -20,6 +20,12 @@ describe Bindy do
       args.inject(:|)
     end
 
+    def merge(*args)
+      args.inject({}) do |hash, var_name|
+        hash.merge var_name.to_sym => var(var_name)
+      end
+    end
+
   end
 
   let(:variables) do
@@ -78,8 +84,19 @@ describe Bindy do
       assert_bind 2, 'min(2, 7)'
     end
 
-    it 'Function with variables' do
+    it 'Nested functions' do
       assert_bind [4,5,6,1,2,3], 'union(var(lists.tail), var(lists.head))'
+    end
+
+    it 'Function with variables' do
+      expected = {
+        number: 5,
+        boolean: true,
+        nested: {
+          value: 10.5
+        }
+      }
+      assert_bind expected, 'merge(number, boolean, nested)'
     end
 
   end
