@@ -1,0 +1,58 @@
+module Bindy
+  grammar Language
+
+    rule expression
+      function / value
+    end
+
+    rule function
+      identifier:identifier space* '(' space* arg_list:arg_list space* ')' <Function>
+    end
+
+    rule arg_list
+      expression space* ',' space* arg_list <ArgList> / 
+      expression
+    end
+
+    rule identifier
+      [a-z\_]+
+    end
+
+    rule value
+      number / boolean / string
+    end
+
+    rule string
+      [\da-zA-ZáéíóúüñÁÉÍÓÚÜÑ¿?!¡\s\@\#\$\%\&\/\\\*\_\-\+\/\\\*\_\-\+\.\,\:\;\<\>\|\"\']+ <LiteralString>
+    end
+
+    rule number
+      float / integer
+    end
+
+    rule integer
+      [\+\-]? [\d]+ <LiteralInteger>
+    end
+
+    rule float
+      [\+\-]? [\d]+ '.' [\d]+ <LiteralFloat>
+    end
+
+    rule boolean
+      true / false
+    end
+
+    rule true
+      'true' <LiteralTrue>
+    end
+
+    rule false
+      'false' <LiteralFalse>
+    end
+
+    rule space
+      [\s\t\n]
+    end
+
+  end
+end
