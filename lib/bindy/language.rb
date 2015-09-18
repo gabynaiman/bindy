@@ -223,8 +223,23 @@ module Bindy
           r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
           r0 = r9
         else
-          @index = i0
-          r0 = nil
+          s10, i10 = [], index
+          loop do
+            r11 = _nt_space
+            if r11
+              s10 << r11
+            else
+              break
+            end
+          end
+          r10 = instantiate_node(SyntaxNode,input, i10...index, s10)
+          if r10
+            r10 = SyntaxNode.new(input, (index-1)...index) if r10 == true
+            r0 = r10
+          else
+            @index = i0
+            r0 = nil
+          end
         end
       end
 
@@ -309,6 +324,13 @@ module Bindy
       r0
     end
 
+    module String0
+      def value
+        elements[1]
+      end
+
+    end
+
     def _nt_string
       start_index = index
       if node_cache[:string].has_key?(index)
@@ -320,26 +342,50 @@ module Bindy
         return cached
       end
 
-      s0, i0 = [], index
-      loop do
-        if has_terminal?(@regexps[gr = '\A[\\da-zA-ZáéíóúüñÁÉÍÓÚÜÑ¿?!¡\\s\\@\\#\\$\\%\\&\\/\\\\\\*\\_\\-\\+\\/\\\\\\*\\_\\-\\+\\.\\:\\;\\<\\>\\|\\"\\\']'] ||= Regexp.new(gr), :regexp, index)
-          r1 = true
-          @index += 1
-        else
-          terminal_parse_failure('[\\da-zA-ZáéíóúüñÁÉÍÓÚÜÑ¿?!¡\\s\\@\\#\\$\\%\\&\\/\\\\\\*\\_\\-\\+\\/\\\\\\*\\_\\-\\+\\.\\:\\;\\<\\>\\|\\"\\\']')
-          r1 = nil
+      i0, s0 = index, []
+      if (match_len = has_terminal?("'", false, index))
+        r1 = true
+        @index += match_len
+      else
+        terminal_parse_failure('"\'"')
+        r1 = nil
+      end
+      s0 << r1
+      if r1
+        s2, i2 = [], index
+        loop do
+          if has_terminal?(@regexps[gr = '\A[\\da-zA-ZáéíóúüñÁÉÍÓÚÜÑ¿?!¡\\s\\@\\#\\$\\%\\&\\/\\\\\\*\\_\\-\\+\\/\\\\\\*\\_\\-\\+\\.\\:\\,\\;\\<\\>\\|\\"\\\\(\\)]'] ||= Regexp.new(gr), :regexp, index)
+            r3 = true
+            @index += 1
+          else
+            terminal_parse_failure('[\\da-zA-ZáéíóúüñÁÉÍÓÚÜÑ¿?!¡\\s\\@\\#\\$\\%\\&\\/\\\\\\*\\_\\-\\+\\/\\\\\\*\\_\\-\\+\\.\\:\\,\\;\\<\\>\\|\\"\\\\(\\)]')
+            r3 = nil
+          end
+          if r3
+            s2 << r3
+          else
+            break
+          end
         end
-        if r1
-          s0 << r1
-        else
-          break
+        r2 = instantiate_node(SyntaxNode,input, i2...index, s2)
+        s0 << r2
+        if r2
+          if (match_len = has_terminal?("'", false, index))
+            r4 = true
+            @index += match_len
+          else
+            terminal_parse_failure('"\'"')
+            r4 = nil
+          end
+          s0 << r4
         end
       end
-      if s0.empty?
+      if s0.last
+        r0 = instantiate_node(LiteralString,input, i0...index, s0)
+        r0.extend(String0)
+      else
         @index = i0
         r0 = nil
-      else
-        r0 = instantiate_node(LiteralString,input, i0...index, s0)
       end
 
       node_cache[:string][start_index] = r0

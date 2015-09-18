@@ -11,7 +11,8 @@ module Bindy
 
     rule arg_list
       expression space* ',' space* arg_list <ArgList> / 
-      expression
+      expression /
+      space*
     end
 
     rule identifier
@@ -23,7 +24,7 @@ module Bindy
     end
 
     rule string
-      [\da-zA-ZáéíóúüñÁÉÍÓÚÜÑ¿?!¡\s\@\#\$\%\&\/\\\*\_\-\+\/\\\*\_\-\+\.\:\;\<\>\|\"\']+ <LiteralString>
+      "'" value:[\da-zA-ZáéíóúüñÁÉÍÓÚÜÑ¿?!¡\s\@\#\$\%\&\/\\\*\_\-\+\/\\\*\_\-\+\.\:\,\;\<\>\|\"\\(\)]* "'" <LiteralString>
     end
 
     rule number

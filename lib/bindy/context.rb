@@ -8,37 +8,17 @@ module Bindy
       @variables = variables
     end
 
-    def bind(object)
-      case object
-        when Hash   then bind_hash object
-        when Array  then bind_array object
-        when String then bind_string object
-        else raise "Unbindable #{object}"
-      end
+    def evaluate(expression)
+      raise ArgumentError, "Expression must be a string (#{expression})" unless expression.kind_of?(String)
+      Language.parse(expression).evaluate(self)
     end
 
     def var(name)
       name.split('.').inject(variables) do |vars, key| 
-        vars.fetch(key, vars.fetch(key.to_sym))
+        vars.fetch(key) { vars.fetch(key.to_sym) }
       end
     rescue KeyError
-      raise "Undefined variable #{name}"
-    end
-
-    private
-
-    def bind_hash(hash)
-      hash.each_with_object({}) do |(k,v),h|
-        h[k] = bind v
-      end
-    end
-
-    def bind_array(array)
-      array.map { |v| bind v }
-    end
-
-    def bind_string(string)
-      Language.parse(string).evaluate(self)
+      raise ArgumentError, "Undefined variable #{name}"
     end
 
   end

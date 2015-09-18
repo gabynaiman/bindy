@@ -27,7 +27,13 @@ module Bindy
       end
 
       def arguments
-        arg_list.respond_to?(:to_a) ? arg_list.to_a : [arg_list]
+        if arg_list.text_value.empty?
+          []
+        elsif arg_list.respond_to?(:to_a)
+          arg_list.to_a 
+        else
+          [arg_list]
+        end
       end
     end
 
@@ -39,7 +45,7 @@ module Bindy
 
     class LiteralString < Treetop::Runtime::SyntaxNode
       def evaluate(context)
-        text_value
+        value.text_value
       end
     end
 
