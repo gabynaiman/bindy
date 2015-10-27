@@ -4,7 +4,7 @@ module Bindy
 
     attr_reader :variables
 
-    def initialize(variables)
+    def initialize(variables={})
       @variables = variables
     end
 
