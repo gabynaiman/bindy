@@ -261,11 +261,11 @@ module Bindy
 
       s0, i0 = [], index
       loop do
-        if has_terminal?(@regexps[gr = '\A[a-z\\_]'] ||= Regexp.new(gr), :regexp, index)
+        if has_terminal?(@regexps[gr = '\A[a-z0-9\\_]'] ||= Regexp.new(gr), :regexp, index)
           r1 = true
           @index += 1
         else
-          terminal_parse_failure('[a-z\\_]')
+          terminal_parse_failure('[a-z0-9\\_]')
           r1 = nil
         end
         if r1

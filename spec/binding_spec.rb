@@ -22,6 +22,10 @@ describe Bindy do
       'text sample'
     end
 
+    def get_number_1
+      1
+    end
+
   end
 
   let(:variables) do
@@ -76,6 +80,7 @@ describe Bindy do
   it 'Functions' do
     assert_evaluate 8, 'sum(3, 5)'
     assert_evaluate 'text sample', 'text_sample()'
+    assert_evaluate 1, 'get_number_1()'
   end
 
   it 'Nested functions' do
