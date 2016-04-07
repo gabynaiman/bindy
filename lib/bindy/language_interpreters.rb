@@ -73,5 +73,11 @@ module Bindy
       end
     end
 
+    class LiteralNull < Treetop::Runtime::SyntaxNode
+      def evaluate(context)
+        nil
+      end
+    end
+
   end
 end

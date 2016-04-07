@@ -313,8 +313,14 @@ module Bindy
             r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
             r0 = r3
           else
-            @index = i0
-            r0 = nil
+            r4 = _nt_null
+            if r4
+              r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
+              r0 = r4
+            else
+              @index = i0
+              r0 = nil
+            end
           end
         end
       end
@@ -665,6 +671,30 @@ module Bindy
       end
 
       node_cache[:false][start_index] = r0
+
+      r0
+    end
+
+    def _nt_null
+      start_index = index
+      if node_cache[:null].has_key?(index)
+        cached = node_cache[:null][index]
+        if cached
+          node_cache[:null][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      if (match_len = has_terminal?('null', false, index))
+        r0 = instantiate_node(LiteralNull,input, index...(index + match_len))
+        @index += match_len
+      else
+        terminal_parse_failure('\'null\'')
+        r0 = nil
+      end
+
+      node_cache[:null][start_index] = r0
 
       r0
     end

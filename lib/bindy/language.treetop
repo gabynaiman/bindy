@@ -20,7 +20,7 @@ module Bindy
     end
 
     rule value
-      number / boolean / string
+      number / boolean / string / null
     end
 
     rule string
@@ -49,6 +49,10 @@ module Bindy
 
     rule false
       'false' <LiteralFalse>
+    end
+
+    rule null
+      'null' <LiteralNull>
     end
 
     rule space

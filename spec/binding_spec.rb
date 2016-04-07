@@ -68,6 +68,10 @@ describe Bindy do
     assert_evaluate false, 'false'
   end
 
+  it 'Null' do
+    assert_evaluate nil, 'null'
+  end
+
   it 'Variables' do
     assert_evaluate true,          "var('boolean')"
     assert_evaluate 10.5,          "var('nested.value')"
