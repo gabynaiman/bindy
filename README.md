@@ -1,10 +1,10 @@
 # Bindy
 
-[![Gem Version](https://badge.fury.io/rb/bindy.png)](https://rubygems.org/gems/bindy)
-[![Build Status](https://travis-ci.org/gabynaiman/bindy.png?branch=master)](https://travis-ci.org/gabynaiman/bindy)
-[![Coverage Status](https://coveralls.io/repos/gabynaiman/bindy/badge.png?branch=master)](https://coveralls.io/r/gabynaiman/bindy?branch=master)
-[![Code Climate](https://codeclimate.com/github/gabynaiman/bindy.png)](https://codeclimate.com/github/gabynaiman/bindy)
-[![Dependency Status](https://gemnasium.com/gabynaiman/bindy.png)](https://gemnasium.com/gabynaiman/bindy)
+[![Gem Version](https://badge.fury.io/rb/bindy.svg)](https://rubygems.org/gems/bindy)
+[![Build Status](https://travis-ci.org/gabynaiman/bindy.svg?branch=master)](https://travis-ci.org/gabynaiman/bindy)
+[![Coverage Status](https://coveralls.io/repos/gabynaiman/bindy/badge.svg?branch=master)](https://coveralls.io/r/gabynaiman/bindy?branch=master)
+[![Code Climate](https://codeclimate.com/github/gabynaiman/bindy.svg)](https://codeclimate.com/github/gabynaiman/bindy)
+[![Dependency Status](https://gemnasium.com/gabynaiman/bindy.svg)](https://gemnasium.com/gabynaiman/bindy)
 
 Context binding for functions evaluation
 
