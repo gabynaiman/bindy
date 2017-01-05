@@ -112,4 +112,15 @@ describe Bindy do
     error.message.must_equal 'Expression must be a string (xyz)'
   end
 
+  it 'Thread safe' do
+    threads = 500.times.map do
+      Thread.new do
+        variables = {a: rand, b: rand}
+        context = TestContext.new variables
+        assert_equal variables[:a] + variables[:b], context.evaluate("sum(var('a'), var('b'))")
+      end
+    end
+    threads.each(&:join)
+  end
+
 end

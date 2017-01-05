@@ -4,15 +4,21 @@ module Bindy
     class << self
 
       def parse(expression)
-        parsed_expression = parser.parse expression
-        raise parser.failure_reason unless parsed_expression
-        parsed_expression
+        mutex.synchronize do
+          parsed_expression = parser.parse expression
+          raise parser.failure_reason unless parsed_expression
+          parsed_expression
+        end
       end
 
       private
 
       def parser
         @parser ||= LanguageParser.new
+      end
+
+      def mutex
+        @mutex ||= Mutex.new
       end
 
     end
