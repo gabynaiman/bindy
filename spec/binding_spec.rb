@@ -50,7 +50,12 @@ describe Bindy do
   let(:context) { TestContext.new variables }
 
   def assert_evaluate(expected, expression)
-    context.evaluate(expression).must_equal expected
+    result = context.evaluate(expression)
+    if expected.nil?
+      result.must_be_nil
+    else
+      result.must_equal expected
+    end
   end
 
   it 'Number' do
